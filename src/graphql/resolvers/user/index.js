@@ -27,9 +27,9 @@ export default {
                 })
             })
         },
-        editUser: (root, {_id, username, email, password}) => {
+        editUser: (root, {_id, username, email, password, games}) => {
             return new Promise((resolve, reject) => {
-                User.findOneAndUpdate({_id}, {$set: {username, email, password}})
+                User.findOneAndUpdate({_id}, {$set: {username, email, password, games}}, { new: true})
                 .exec((err, res) => {
                     err ? reject(err) : resolve(res);
                 })
