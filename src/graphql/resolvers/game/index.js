@@ -1,43 +1,43 @@
-import User from '../../../models/User';
+import Game from '../../../models/Game';
 
 export default {
     Query: {
-        user: (root, args) => {
+        game: (root, args) => {
             return new Promise((resolve, reject) => {
-                User.findOne(args).exec((err, res) => {
+                Game.findOne(args).exec((err, res) => {
                     err ? reject(err) : resolve(res);
                 }) 
             })
         },
-        users: () => {
+        games: () => {
             return new Promise((resolve, reject) => {
-                User.find({}).populate().exec((err, res) => {
+                Game.find({}).populate().exec((err, res) => {
                     err ? reject(err) : resolve(res);
                 })
             })
         }
     },
     Mutation: {
-        addUser: (root, {username, email, password, games}) => {
-            const newUser = new User({username, email, password, games});
+        addGame: (root, {name, description, image}) => {
+            const newGame = new Game({name, description, image});
 
             return new Promise((resolve, reject) => {
-                newUser.save((err, res) => {
+                newGame.save((err, res) => {
                     err ? reject(err) : resolve(res);
                 })
             })
         },
-        editUser: (root, {_id, username, email, password}) => {
+        editGame: (root, {_id, name, description, image}) => {
             return new Promise((resolve, reject) => {
-                User.findOneAndUpdate({_id}, {$set: {username, email, password}})
+                Game.findOneAndUpdate({_id}, {$set: {name, description, image}})
                 .exec((err, res) => {
                     err ? reject(err) : resolve(res);
                 })
             })
         },
-        deleteUser: (root, {_id}) => {
+        deleteGame: (root, {_id}) => {
             return new Promise((resolve, reject) => {
-                User.findOneAndRemove({_id}).exec((err, res)=>{
+                Game.findOneAndRemove({_id}).exec((err, res)=>{
                     err ? reject(err) : resolve(res);
                 })
             });

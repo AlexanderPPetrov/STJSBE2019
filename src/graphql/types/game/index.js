@@ -1,5 +1,12 @@
 export default `
 
+    input GameInput {
+        _id: String!,
+        name: String!,
+        description: String,
+        image: String!
+    }
+
     type Game {
         _id: String!,
         name: String!,
